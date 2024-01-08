@@ -51,14 +51,10 @@ function unblinkPointer() {
 
 blinkPointer();
 
-// C button
-resetBtn.addEventListener("click", blinkPointer);
-
 // Digits
 // Function to register digits on screen
 function registerDigits(digit) {
   digit = digit.textContent;
-  // If the pointer is blinking
   if (isBlinking) {
     unblinkPointer();
     firstDisplay.textContent = digit;
@@ -98,6 +94,7 @@ operators.forEach((digit) => {
   });
 });
 
+// Function to calculate values
 equalBtn.addEventListener("click",() => {
   if(whatOperation && !isContinue) {
     result = "";
@@ -129,12 +126,9 @@ equalBtn.addEventListener("click",() => {
   } 
 });
 
+// B (Backspace button)
 function backSpace() {
   let display1 = firstDisplay.textContent;
-  let display2 = secondDisplay.textContent;
-  let operator = operationDisplay.textContent
-  let display1Lnt = display1.length;
-  let display2Lnt = display2.length;
 
   let lastChar = (string) => {
     return string.charAt(string.length - 1);
@@ -154,8 +148,9 @@ function backSpace() {
     firstDisplay.textContent = display1.replace(lastChar(display1),"");
   }
 
-  console.log(`${display1} Cleared`);
-
 }
 
 backBtn.addEventListener("click", backSpace);
+
+// C (Clear button)
+resetBtn.addEventListener("click", blinkPointer);
