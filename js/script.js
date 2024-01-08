@@ -6,11 +6,9 @@ let equalBtn = document.getElementById("equalBtn");
 let resetBtn = document.getElementById("resetBtn");
 let backBtn = document.getElementById("backBtn");
 let operationDisplay = document.getElementById("operation");
-
 let offBlink = "";
 let onBlink = "";
 let isBlinking = true;
-
 let evalValue1 = "";
 let evalValue2 = "";
 let isContinue = true;
@@ -26,19 +24,15 @@ function blinkPointer() {
   evalValue2 = "";
   whatOperation = "";
   result = "";
-
   firstDisplay.innerHTML = "|";
-
   offBlink = setInterval(() => {
     firstDisplay.innerHTML = "";
     secondDisplay.innerHTML = "";
     operationDisplay.innerHTML = "";
-  },500);
-  
+  },500);  
   onBlink = setInterval(() => {
     firstDisplay.innerHTML = "|";
   },1500);
-
   isBlinking = true;
 }
 
@@ -49,7 +43,6 @@ function unblinkPointer() {
   firstDisplay.innerHTML = "";
   isBlinking = false;
 }
-
 blinkPointer();
 
 // Digits
@@ -126,10 +119,8 @@ function toCalculate() {
         result = "Err";
         break;
     }
-
     firstDisplay.textContent = result;
     isComplete = true;
-
     console.log(`${evalValue1} ${whatOperation} ${evalValue2} = ${result}`); 
   }
 }
@@ -148,17 +139,15 @@ equalBtn.addEventListener("click",() => {
     secondDisplay.textContent = "";
     operationDisplay.textContent = "";
     isContinue = false;
-  }  
-  
+  }    
 });
 
-// B (Backspace button)
+// Function to undo last process
 function backSpace() {
   let display1 = firstDisplay.textContent;
   let lastChar = (string) => {
     return string.charAt(string.length - 1);
   }
-
   if (secondDisplay.textContent !== "" ) {
     firstDisplay.textContent = display1.replace(lastChar(display1),"");
     if (firstDisplay.textContent.length == 0) {
@@ -173,6 +162,7 @@ function backSpace() {
   }
 }
 
+// B (Backspace button)
 backBtn.addEventListener("click", backSpace);
 
 // C (Clear button)
