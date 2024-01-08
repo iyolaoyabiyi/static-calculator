@@ -18,6 +18,8 @@ body {
 
 .main-container {
   width: 400px;
+  max-width: 100%;
+  border-radius: 10px;
   border: 2px solid var(--primary);
   margin: auto;
   background: var(--primary);
@@ -60,7 +62,7 @@ body {
   background: var(--primary-tint)
 }
 
-.eval, .bckspace {
+.operator, .bckspace, .equal {
   color: var(--secondary-tint);
 }
 
