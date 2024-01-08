@@ -26,6 +26,8 @@ function blinkPointer() {
   whatOperation = "";
   result = "";
 
+  firstDisplay.innerHTML = "|";
+
   offBlink = setInterval(() => {
     firstDisplay.innerHTML = "";
     secondDisplay.innerHTML = "";
@@ -34,7 +36,7 @@ function blinkPointer() {
   
   onBlink = setInterval(() => {
     firstDisplay.innerHTML = "|";
-  },1000);
+  },1500);
 
   isBlinking = true;
 }
@@ -125,4 +127,35 @@ equalBtn.addEventListener("click",() => {
 
     console.log(`${evalValue1} ${whatOperation} ${evalValue2} = ${result}`);    
   } 
-})
+});
+
+function backSpace() {
+  let display1 = firstDisplay.textContent;
+  let display2 = secondDisplay.textContent;
+  let operator = operationDisplay.textContent
+  let display1Lnt = display1.length;
+  let display2Lnt = display2.length;
+
+  let lastChar = (string) => {
+    return string.charAt(string.length - 1);
+  }
+
+  if (secondDisplay.textContent !== "" ) {
+    firstDisplay.textContent = display1.replace(lastChar(display1),"");
+    console.log(firstDisplay.textContent.length);
+    if (firstDisplay.textContent.length == 0) {
+      firstDisplay.textContent = secondDisplay.textContent;
+      secondDisplay.textContent = "";
+      operationDisplay.textContent = "";
+    }
+  } else if (display1.length == 1) {
+      blinkPointer();
+  } else {
+    firstDisplay.textContent = display1.replace(lastChar(display1),"");
+  }
+
+  console.log(`${display1} Cleared`);
+
+}
+
+backBtn.addEventListener("click", backSpace);
