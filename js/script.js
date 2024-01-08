@@ -13,14 +13,15 @@ let isBlinking = true;
 
 let evalValue1 = "";
 let evalValue2 = "";
-let isContinue = false;
+let isContinue = true;
 let isComplete = false;
 let whatOperation = "";
 let result = "";
 
 // Function to start/restart calculator
 function blinkPointer() {
-  isContinue = false;
+  isContinue = true;
+  isComplete = false;
   evalValue1 = "";
   evalValue2 = "";
   whatOperation = "";
@@ -41,7 +42,7 @@ function blinkPointer() {
   isBlinking = true;
 }
 
-// Function to stop the pointer when calculator digits is clicked
+// Function to preceed start of calculator (Stop blinking)
 function unblinkPointer() {
   clearInterval(offBlink);
   clearInterval(onBlink);
@@ -65,40 +66,48 @@ function registerDigits(digit) {
   }
 }
 
+// Digits button
 digits.forEach((digit) => {
   digit.addEventListener("click", () => {
     registerDigits(digit);
   });
 });
 
-// Function to collect value and indicate operation type
-
-function registerOperation(digit) {
+// Operators
+// Function to check and display operator
+function setOperator(digit) {
   whatOperation = digit.textContent;
   operationDisplay.textContent = whatOperation;
-  if (!isBlinking && secondDisplay.textContent === "") {
-    secondDisplay.textContent = firstDisplay.textContent;
-    firstDisplay.textContent = "";
-  } if (!isBlinking && isContinue) {
-      secondDisplay.textContent = firstDisplay.textContent;
-      firstDisplay.textContent = "";
-      isContinue = false;
-  }
-  evalValue1 = secondDisplay.textContent;
+  secondDisplay.textContent = firstDisplay.textContent;
+  firstDisplay.textContent = "";
   isComplete = false;
+  isContinue = true;
 }
 
-operators.forEach((digit) => {
-  digit.addEventListener("click", () => {
-    registerOperation(digit);
-  });
-});
+// Function to process operation
+function registerOperation(digit) {
+  if (!isBlinking && secondDisplay.textContent === "") {
+    setOperator(digit);
+  } 
+  else if (isComplete) {
+    setOperator(digit);
+    console.log("Here");
+  } 
+  else if (firstDisplay.textContent !== "" && secondDisplay.textContent !== "") {
+    toCalculate();
+    setOperator(digit);
+  }  else {
+      whatOperation = digit.textContent;
+      operationDisplay.textContent = whatOperation;
+  }
+}
 
 // Function to calculate values
-equalBtn.addEventListener("click",() => {
-  if(whatOperation && !isContinue) {
-    result = "";
-    evalValue2 = firstDisplay.textContent;
+function toCalculate() {
+  evalValue1 = secondDisplay.textContent;
+  evalValue2 = firstDisplay.textContent;
+  if(whatOperation && evalValue2 !== "" && evalValue1 !== "") {
+    result = "";   
     evalValue1 = parseFloat(evalValue1);
     evalValue2 = parseFloat(evalValue2);
     switch (whatOperation) {
@@ -118,25 +127,39 @@ equalBtn.addEventListener("click",() => {
         result = "Err";
         break;
     }
+
     firstDisplay.textContent = result;
-    isContinue = true;
     isComplete = true;
 
-    console.log(`${evalValue1} ${whatOperation} ${evalValue2} = ${result}`);    
-  } 
+    console.log(`${evalValue1} ${whatOperation} ${evalValue2} = ${result}`); 
+  }
+}
+
+// Operator buttons
+operators.forEach((digit) => {
+  digit.addEventListener("click", () => {
+    registerOperation(digit);    
+  });
+});
+
+// Equal button
+equalBtn.addEventListener("click",() => {
+  if (isContinue) {
+    toCalculate();
+    isContinue = false;
+  }  
+  
 });
 
 // B (Backspace button)
 function backSpace() {
   let display1 = firstDisplay.textContent;
-
   let lastChar = (string) => {
     return string.charAt(string.length - 1);
   }
 
   if (secondDisplay.textContent !== "" ) {
     firstDisplay.textContent = display1.replace(lastChar(display1),"");
-    console.log(firstDisplay.textContent.length);
     if (firstDisplay.textContent.length == 0) {
       firstDisplay.textContent = secondDisplay.textContent;
       secondDisplay.textContent = "";
@@ -147,10 +170,12 @@ function backSpace() {
   } else {
     firstDisplay.textContent = display1.replace(lastChar(display1),"");
   }
-
 }
 
 backBtn.addEventListener("click", backSpace);
 
 // C (Clear button)
-resetBtn.addEventListener("click", blinkPointer);
+resetBtn.addEventListener("click", () => {
+  unblinkPointer();
+  blinkPointer();
+});
