@@ -91,7 +91,6 @@ function registerOperation(digit) {
   } 
   else if (isComplete) {
     setOperator(digit);
-    console.log("Here");
   } 
   else if (firstDisplay.textContent !== "" && secondDisplay.textContent !== "") {
     toCalculate();
