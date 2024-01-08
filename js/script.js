@@ -145,6 +145,8 @@ operators.forEach((digit) => {
 equalBtn.addEventListener("click",() => {
   if (isContinue) {
     toCalculate();
+    secondDisplay.textContent = "";
+    operationDisplay.textContent = "";
     isContinue = false;
   }  
   
