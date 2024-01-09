@@ -13,18 +13,28 @@ body {
   font-family: 'Courier New', Courier, monospace;
   background: var(--secondary);
   color: var(--primary);
-  display: flex;
-  align-items: center;
+  margin: 0;
 }
 
 .main-container {
-  width: 400px;
-  max-width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.main-container h1 {
+  text-align: center;
+}
+
+.calc-container {
+  /* width: 400px; */
   border-radius: 10px;
   border: 2px solid var(--primary);
   margin: auto;
   background: var(--primary);
   color: var(--secondary);
+  margin: 20px;
 }
 
 .display-container {
@@ -77,4 +87,37 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media screen and (max-width: 450px) {
+  .display-container {
+    padding: 1em 1em 0.5em;
+  }
+  .display-container h3 {
+    font-size: 2.3em;
+  }
+  .btn {
+    font-size: 1.5em;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .calc-container {
+    /* width: 250px; */
+    margin: 10px;
+  }
+  .display-container {
+    padding: 0.5em 1em 0;
+  }
+  .display-container h3 {
+    font-size: 2em;
+  }
+
+  .button-container {
+    margin: 1em;
+    gap: 1.2em;
+  }
+  .btn {
+    font-size: 1.2em;
+  }
 }
