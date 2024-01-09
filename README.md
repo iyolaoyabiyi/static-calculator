@@ -13,15 +13,15 @@ The Static Calculator is a straightforward and user-friendly calculator designed
 
 1. Enter numbers using the digit buttons (0-9).
 2. Choose the desired operation: +, -, *, or /.
-3. Press "=" to obtain the result.
+3. Press "=" to obtain the result. Alternatively Choose another desired operation to perform a chained calculation.
 
 ## How to Run
 
-Simply open the provided `index.html` file in a web browser to start using the calculator. The styles are defined in `./css/style.css`, and the functionality is handled by `./js/script.js`.
+Simply open the provided `index.html` file in a web browser to start using the calculator. The styles are defined in `css/style.css`, and the functionality is handled by `js/script.js`.
 
 ## Live Demo
 
-Explore the calculator in action on our website: [Static Calculator Demo](#)
+Explore the calculator in action on our website: [Static Calculator Demo](https://iyotestapp.my-board.org/static-calculator/)
 
 ## License
 
