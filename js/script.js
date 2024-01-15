@@ -1,4 +1,5 @@
-let firstDisplay = document.getElementById("firstDisplay");
+// DOM
+let mainDisplay = document.getElementById("mainDisplay");
 let secondDisplay = document.getElementById("secondDisplay");
 let digits = document.querySelectorAll(".digit");
 let operators = document.querySelectorAll(".operator");
@@ -6,13 +7,18 @@ let equalBtn = document.getElementById("equalBtn");
 let resetBtn = document.getElementById("resetBtn");
 let backBtn = document.getElementById("backBtn");
 let operationDisplay = document.getElementById("operation");
-let offBlink = "";
-let onBlink = "";
+let posNegBtn = document.querySelector(".pos-neg");
+
+// Switches
 let isBlinking = true;
-let evalValue1 = "";
-let evalValue2 = "";
 let isContinue = true;
 let isComplete = false;
+let isPositive = true;
+
+let offBlink = "";
+let onBlink = "";
+let evalValue1 = "";
+let evalValue2 = "";
 let whatOperation = "";
 let result = "";
 
@@ -20,18 +26,19 @@ let result = "";
 function blinkPointer() {
   isContinue = true;
   isComplete = false;
+  isPositive = true;
   evalValue1 = "";
   evalValue2 = "";
   whatOperation = "";
   result = "";
-  firstDisplay.innerHTML = "|";
+  mainDisplay.innerHTML = "|";
   offBlink = setInterval(() => {
-    firstDisplay.innerHTML = "";
+    mainDisplay.innerHTML = "";
     secondDisplay.innerHTML = "";
     operationDisplay.innerHTML = "";
   },500);  
   onBlink = setInterval(() => {
-    firstDisplay.innerHTML = "|";
+    mainDisplay.innerHTML = "|";
   },1500);
   isBlinking = true;
 }
@@ -40,7 +47,7 @@ function blinkPointer() {
 function unblinkPointer() {
   clearInterval(offBlink);
   clearInterval(onBlink);
-  firstDisplay.innerHTML = "";
+  mainDisplay.innerHTML = "";
   isBlinking = false;
 }
 blinkPointer();
@@ -51,11 +58,11 @@ function registerDigits(digit) {
   digit = digit.textContent;
   if (isBlinking) {
     unblinkPointer();
-    firstDisplay.textContent = digit;
+    mainDisplay.textContent = digit;
   } else if (!isBlinking && isComplete) {
-      firstDisplay.textContent = digit;
+      mainDisplay.textContent = digit;
   } else {
-    firstDisplay.textContent += digit;
+    mainDisplay.textContent += digit;
   }
 }
 
@@ -66,15 +73,34 @@ digits.forEach((digit) => {
   });
 });
 
+// Positive Negative Button
+function addPosNeg() {
+  let mainValue = mainDisplay.textContent;
+  let mainValueFC = mainValue.charAt(0);
+  if (!isBlinking && mainValue !== "") {
+    if (isPositive && mainValueFC !== "-") {
+      mainDisplay.textContent = `-${mainValue}`;
+      isPositive = false;
+    } else {
+      mainDisplay.textContent = Math.abs(mainValue);
+      isPositive = true;
+    }
+  }  
+}
+posNegBtn.addEventListener("click",() => {
+  addPosNeg();
+});
+
 // Operators
 // Function to check and display operator
 function setOperator(digit) {
   whatOperation = digit.textContent;
   operationDisplay.textContent = whatOperation;
-  secondDisplay.textContent = firstDisplay.textContent;
-  firstDisplay.textContent = "";
+  secondDisplay.textContent = mainDisplay.textContent;
+  mainDisplay.textContent = "";
   isComplete = false;
   isContinue = true;
+  isPositive = true;
 }
 
 // Function to process operation
@@ -85,7 +111,7 @@ function registerOperation(digit) {
   else if (isComplete) {
     setOperator(digit);
   } 
-  else if (firstDisplay.textContent !== "" && secondDisplay.textContent !== "") {
+  else if (mainDisplay.textContent !== "" && secondDisplay.textContent !== "") {
     toCalculate();
     setOperator(digit);
   }  else {
@@ -97,7 +123,7 @@ function registerOperation(digit) {
 // Function to calculate values
 function toCalculate() {
   evalValue1 = secondDisplay.textContent;
-  evalValue2 = firstDisplay.textContent;
+  evalValue2 = mainDisplay.textContent;
   if(whatOperation && evalValue2 !== "" && evalValue1 !== "") {
     result = "";   
     evalValue1 = parseFloat(evalValue1);
@@ -119,8 +145,9 @@ function toCalculate() {
         result = "Err";
         break;
     }
-    firstDisplay.textContent = result;
+    mainDisplay.textContent = result;
     isComplete = true;
+    isPositive = true;
     console.log(`${evalValue1} ${whatOperation} ${evalValue2} = ${result}`); 
   }
 }
@@ -144,21 +171,21 @@ equalBtn.addEventListener("click",() => {
 
 // Function to undo last process
 function backSpace() {
-  let display1 = firstDisplay.textContent;
+  let display1 = mainDisplay.textContent;
   let lastChar = (string) => {
     return string.charAt(string.length - 1);
   }
   if (secondDisplay.textContent !== "" ) {
-    firstDisplay.textContent = display1.replace(lastChar(display1),"");
-    if (firstDisplay.textContent.length == 0) {
-      firstDisplay.textContent = secondDisplay.textContent;
+    mainDisplay.textContent = display1.replace(lastChar(display1),"");
+    if (mainDisplay.textContent.length == 0) {
+      mainDisplay.textContent = secondDisplay.textContent;
       secondDisplay.textContent = "";
       operationDisplay.textContent = "";
     }
   } else if (display1.length == 1) {
       blinkPointer();
   } else {
-    firstDisplay.textContent = display1.replace(lastChar(display1),"");
+    mainDisplay.textContent = display1.replace(lastChar(display1),"");
   }
 }
 

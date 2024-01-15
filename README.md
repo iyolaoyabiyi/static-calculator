@@ -8,12 +8,14 @@ The Static Calculator is a straightforward and user-friendly calculator designed
 - **Operators:** Supports addition (+), subtraction (-), multiplication (*), and division (/).
 - **Clear Functionality:** Easily reset or clear calculations with the "C" button.
 - **Backspace Option:** Correct mistakes efficiently using the backspace button ("B").
+- **Sign Change:** The calculator now includes a button to change the sign of the displayed number (+/-).
 
 ## Usage
 
 1. Enter numbers using the digit buttons (0-9).
-2. Choose the desired operation: +, -, *, or /.
-3. Press "=" to obtain the result. Alternatively Choose another desired operation to perform a chained calculation.
+2. Choose the desired operation: +, -, X, or /.
+3. Press "=" to obtain the result. Alternatively, choose another desired operation to perform a chained calculation.
+4. Utilize the new "+/-" button to change the sign of the displayed number.
 
 ## How to Run
 

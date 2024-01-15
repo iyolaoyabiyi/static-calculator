@@ -16,6 +16,16 @@ body {
   margin: 0;
 }
 
+a {
+  text-decoration: none;
+  color: var(--secondary-tint);
+}
+
+a:hover {
+  color: var(--primary-tint);
+  background: var(--primary);
+}
+
 .main-container {
   display: flex;
   flex-flow: column nowrap;
@@ -86,6 +96,13 @@ body {
   grid-row: 4 / span 2;
   display: flex;
   align-items: center;
+  justify-content: center;
+}
+
+.pos-neg {
+  font-size: 1.2em;
+  display: flex;
+  flex-flow: column nowrap;
   justify-content: center;
 }
 
