@@ -38,7 +38,6 @@ a:hover {
 }
 
 .calc-container {
-  /* width: 400px; */
   border-radius: 10px;
   border: 2px solid var(--primary);
   margin: auto;
@@ -116,11 +115,13 @@ a:hover {
   .btn {
     font-size: 1.5em;
   }
+  .pos-neg {
+    font-size: 1em;
+  }
 }
 
 @media screen and (max-width: 350px) {
   .calc-container {
-    /* width: 250px; */
     margin: 10px;
   }
   .display-container {
@@ -136,5 +137,8 @@ a:hover {
   }
   .btn {
     font-size: 1.2em;
+  }
+  .pos-neg {
+    font-size: 0.8em;
   }
 }
