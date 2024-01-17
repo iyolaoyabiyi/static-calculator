@@ -56,13 +56,22 @@ blinkPointer();
 // Function to register digits on screen
 function registerDigits(digit) {
   digit = digit.textContent;
+  let displayedDig = mainDisplay.textContent;
   if (isBlinking) {
     unblinkPointer();
     mainDisplay.textContent = digit;
-  } else if (!isBlinking && isComplete) {
+    console.log("Start");
+  } else if (!isBlinking && isComplete && !isContinue) {
       mainDisplay.textContent = digit;
+      isContinue = true;
   } else {
-    mainDisplay.textContent += digit;
+    if (displayedDig === "0" && digit === "0") {
+      mainDisplay.textContent = digit;
+    } else if (displayedDig === "0" && digit !== "0") {
+      mainDisplay.textContent = digit;
+    }else if(displayedDig.length <= 10) {
+      mainDisplay.textContent += digit;
+    }
   }
 }
 
@@ -145,8 +154,15 @@ function toCalculate() {
         result = "Err";
         break;
     }
-    mainDisplay.textContent = result;
+    let stringResult = result.toString();
+    if (stringResult.length <= 10) {
+      mainDisplay.textContent = result;
+    } else {
+      alert(`Result too long to compute: \nResult: ${result}`);
+      blinkPointer();
+    }    
     isComplete = true;
+    isContinue = false;
     isPositive = true;
     console.log(`${evalValue1} ${whatOperation} ${evalValue2} = ${result}`); 
   }

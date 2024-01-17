@@ -38,6 +38,7 @@ a:hover {
 }
 
 .calc-container {
+  max-width: 400px;
   border-radius: 10px;
   border: 2px solid var(--primary);
   margin: auto;
@@ -106,6 +107,9 @@ a:hover {
 }
 
 @media screen and (max-width: 450px) {
+  .calc-container {
+    max-width: 90vw;
+  }
   .display-container {
     padding: 1em 1em 0.5em;
   }
