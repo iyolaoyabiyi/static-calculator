@@ -23,7 +23,7 @@ Simply open the provided `index.html` file in a web browser to start using the c
 
 ## Live Demo
 
-Explore the calculator in action on our website: [Static Calculator Demo](https://iyotestapp.my-board.org/static-calculator/)
+Explore the calculator in action on our website: [Static Calculator Demo](https://iyotestapp.w3spaces.com/)
 
 ## License
 
