@@ -60,7 +60,6 @@ function registerDigits(digit) {
   if (isBlinking) {
     unblinkPointer();
     mainDisplay.textContent = digit;
-    console.log("Start");
   } else if (!isBlinking && isComplete && !isContinue) {
       mainDisplay.textContent = digit;
       isContinue = true;
